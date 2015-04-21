@@ -197,6 +197,11 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
     	initial._id = "1";
     	initial.shape  = circle;
     	coll3.insert(initial);
+    	
+    	/*
+    	 *  Change from circle to square and verify that shape is completely
+    	 *  updated.
+    	 */
     	coll3.updateById(initial._id, DBUpdate.set("shape", square));
     	
     	ShapeAndString expected = new ShapeAndString();
@@ -212,6 +217,23 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
     	Square updatedSquare = (Square)updated.shape; 
     	assertThat(updatedSquare.type, equalTo(square.type));
     	assertThat(updatedSquare.length, equalTo(square.length));
+
+    	/*
+    	 *  Change back from square to circle and verify that shape is completely
+    	 *  updated.
+    	 */
+    	coll3.updateById(initial._id, DBUpdate.set("shape", circle));
+    	expected.shape  = circle;
+    	 
+    	updated = coll3.findOneById(initial._id);
+    	assertThat(updated, notNullValue());
+    	assertThat(updated._id, equalTo(expected._id));
+    	assertThat(updated.shape, notNullValue());
+    	assertThat(updated.shape, instanceOf(Circle.class));
+
+    	Circle updatedCircle = (Circle)updated.shape; 
+    	assertThat(updatedCircle.type, equalTo(circle.type));
+    	assertThat(updatedCircle.radius, equalTo(circle.radius));
     }
  
     public static class MockObject {
