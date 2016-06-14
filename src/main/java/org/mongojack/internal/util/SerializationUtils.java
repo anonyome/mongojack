@@ -57,6 +57,7 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.ContainerSerializer;
 import com.fasterxml.jackson.databind.ser.std.BeanSerializerBase;
 import com.fasterxml.jackson.databind.ser.std.MapSerializer;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -365,7 +366,7 @@ public class SerializationUtils {
 
                     JsonSerializer<?> fieldSerializer = findUpdateSerializer(field
                             .getValue().isTargetCollection(), field.getKey(),
-                            serializerProvider, serializer, field.getValue().getValue().getClass());
+                            serializerProvider, serializer, objectMapper.getTypeFactory(), field.getValue().getValue().getClass());
                     if (fieldSerializer != null) {
                         value = serializeUpdateField(field.getValue(),
                                 fieldSerializer, serializerProvider,
@@ -424,7 +425,7 @@ public class SerializationUtils {
 
     private static JsonSerializer<?> findUpdateSerializer(
             boolean targetIsCollection, String fieldPath,
-            SerializerProvider serializerProvider, JsonSerializer<?> serializer, Class<?> valueClass) {
+            SerializerProvider serializerProvider, JsonSerializer<?> serializer, TypeFactory typeFactory, Class<?> valueClass) {
         if (serializer instanceof BeanSerializerBase) {
             JsonSerializer<?> fieldSerializer = serializer;
             // Iterate through the components of the field name
@@ -465,7 +466,7 @@ public class SerializationUtils {
                         	JavaType writerType = writer.getType();
                         	JavaType valueType  = writerType;
                         	if (writerType.getRawClass().isAssignableFrom(valueClass)) {
-                        		valueType = writerType.narrowBy(valueClass);
+                        		valueType = typeFactory.constructSpecializedType(writerType,  valueClass);
                         	}
                         	
                             // Do a generic lookup
