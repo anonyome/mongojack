@@ -9,3 +9,4 @@ deploy:
   on:
     repo: anonyome/mongojack
     branch: anonyome-2.6.1
+    tags: true
