@@ -15,6 +15,7 @@ deploy:
   file:
     - pom.xml
     - target/mongojack-2.6.1-ANONYOME.jar
-on:
+  on:
     repo: anonyome/mongojack
     branch: anonyome-2.6.1
+    tags: true
