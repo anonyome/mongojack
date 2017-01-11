@@ -7,8 +7,8 @@ deploy:
     secure: jbpK0NkyaC9ISZtyRmsSI4RZm/hGZmsrgxwzSeJGX6llPBHTV/UhUtoN9S1O70WfkPdAe/wQxhYnI+XSExOcTbbCSsj9+h+4bMn10/dJdKG0raSDBXa267xsPDIDVTjYMgswMFfnU0QtH5sAg101qtZhaGRDMuUrj7hKgwLBE8W2zhC1TpK1MW8Z8BYpQEk+aS5OG9t/cSOG5hY+10jlIvO1Yg4DyJUjTiwPLynIb1TlOCo1+utHWGL8DbMCxBSidLUc70W+88U5k2qHwJHbCttwJfzxZYAWKtrIxy3H8NUdJ1IR/PSjqgDySkjyxPuZ8JGpF8WoPtKfQqS1FD7TaSNu3NC19cEsRz3TcGwgCP8WdnPsQAYLMhZe8DiaGF9SQOwbIYQmIpFKISwgKj+pvOFE+/OujIQucg6IhcefOEJ8EQUBnLTcWcUl9bgi9eWIEsLVh6vk9SdBAVBWWwSWLPXyHiemT2vrXZ7SRQJbEsGOtBdcQPnQQuRTAQJIjoSS0r/QzKTj6A/ccCAUCkaG1vs2aITIXNkUuTkSPzKsHLCtjJy7dXyrBWZV7GVPpc+MYwNezVXK+ZH0Mk6pe7NXAXsVxz5EZRNZc0/xhVzbHEK4jWo3h82wneZXdbHGkbC0TPOOxyJCxuj3vkx4YEHTTGAswaQkIUBgUOKt6jskO7E=
   file:
     - pom.xml
-    - target/mongojack-2.5.1-ANONYOME.jar
+    - target/mongojack-2.5.2-ANONYOME.jar
   on:
     repo: anonyome/mongojack
-    branch: anonyome-2.5.1
+    branch: anonyome-2.5.2
     tags: true
