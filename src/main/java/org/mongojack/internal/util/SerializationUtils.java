@@ -465,12 +465,11 @@ public class SerializationUtils {
                     if (writer != null) {
                         fieldSerializer = writer.getSerializer();
                         if (fieldSerializer == null) {
-                        	JavaType writerType = writer.getType();
-                        	JavaType valueType  = writerType;
-                        	if (writerType.getRawClass().isAssignableFrom(valueClass)) {
-                        		valueType = typeFactory.constructSpecializedType(writerType,  valueClass);
-                        	}
-                        	
+                            JavaType writerType = writer.getType();
+                            JavaType valueType  = writerType;
+                            if (writerType.getRawClass().isAssignableFrom(valueClass)) {
+                                valueType = typeFactory.constructSpecializedType(writerType, valueClass);
+                            }
                             // Do a generic lookup
                             fieldSerializer = JacksonAccessor
                                     .findValueSerializer(serializerProvider,

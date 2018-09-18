@@ -1,13 +1,13 @@
 /*
  * Copyright 2011 VZ Netzwerke Ltd
  * Copyright 2014 devbliss GmbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -169,7 +169,7 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
 
         Date d1 = new Date(10000L);
         Date d2 = new Date(20000L);
-    	
+
         NestedRepeatedAttributeName original = new NestedRepeatedAttributeName();
         original.inner.timestamp = d1;
         original.timestamp       = 30000;
@@ -182,18 +182,18 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
         assertThat(updated.inner.timestamp, equalTo(d2));
         assertThat(updated.timestamp, equalTo(original.timestamp));
     }
-    
+
     // Test to detect presence of issue https://github.com/mongojack/mongojack/issues/127
     @Test
     public void testUpdateOfNestedIdFieldWithDifferentType() {
         JacksonDBCollection<NestedIdFieldWithDifferentType, String> collection = getCollection(NestedIdFieldWithDifferentType.class, String.class);
-        
+
         NestedIdFieldWithDifferentType original = new NestedIdFieldWithDifferentType();
-        
+
         collection.insert(original);
         String newValue = "new value";
         collection.update(DBQuery.is("nested._id", NESTED_ID_FIELD_VALUE), DBUpdate.set("value", newValue));
-        
+
         NestedIdFieldWithDifferentType updated = collection.findOneById(original._id);
         assertThat(updated, notNullValue());
         assertThat(updated.value, equalTo(newValue));
@@ -203,56 +203,56 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
     @Test
     public void testNestedPolymorphicValue()
     {
-    	coll3 = getCollection(ShapeAndString.class, String.class);
-    	
-    	Circle circle = new Circle();
-    	circle.radius = 1;
-    	Square square = new Square();
-    	square.length = 2;
+        coll3 = getCollection(ShapeAndString.class, String.class);
 
-    	ShapeAndString initial = new ShapeAndString();
-    	initial._id = "1";
-    	initial.shape  = circle;
-    	coll3.insert(initial);
-    	
-    	/*
-    	 *  Change from circle to square and verify that shape is completely
-    	 *  updated.
-    	 */
-    	coll3.updateById(initial._id, DBUpdate.set("shape", square));
-    	
-    	ShapeAndString expected = new ShapeAndString();
-    	expected._id = initial._id;
-    	expected.shape  = square;
- 
-    	ShapeAndString updated = coll3.findOneById(initial._id);
-    	assertThat(updated, notNullValue());
-    	assertThat(updated._id, equalTo(expected._id));
-    	assertThat(updated.shape, notNullValue());
-    	assertThat(updated.shape, instanceOf(Square.class));
+        Circle circle = new Circle();
+        circle.radius = 1;
+        Square square = new Square();
+        square.length = 2;
 
-    	Square updatedSquare = (Square)updated.shape; 
-    	assertThat(updatedSquare.type, equalTo(square.type));
-    	assertThat(updatedSquare.length, equalTo(square.length));
+        ShapeAndString initial = new ShapeAndString();
+        initial._id = "1";
+        initial.shape  = circle;
+        coll3.insert(initial);
 
-    	/*
-    	 *  Change back from square to circle and verify that shape is completely
-    	 *  updated.
-    	 */
-    	coll3.updateById(initial._id, DBUpdate.set("shape", circle));
-    	expected.shape  = circle;
-    	 
-    	updated = coll3.findOneById(initial._id);
-    	assertThat(updated, notNullValue());
-    	assertThat(updated._id, equalTo(expected._id));
-    	assertThat(updated.shape, notNullValue());
-    	assertThat(updated.shape, instanceOf(Circle.class));
+        /*
+         *  Change from circle to square and verify that shape is completely
+         *  updated.
+         */
+        coll3.updateById(initial._id, DBUpdate.set("shape", square));
 
-    	Circle updatedCircle = (Circle)updated.shape; 
-    	assertThat(updatedCircle.type, equalTo(circle.type));
-    	assertThat(updatedCircle.radius, equalTo(circle.radius));
+        ShapeAndString expected = new ShapeAndString();
+        expected._id = initial._id;
+        expected.shape  = square;
+
+        ShapeAndString updated = coll3.findOneById(initial._id);
+        assertThat(updated, notNullValue());
+        assertThat(updated._id, equalTo(expected._id));
+        assertThat(updated.shape, notNullValue());
+        assertThat(updated.shape, instanceOf(Square.class));
+
+        Square updatedSquare = (Square)updated.shape;
+        assertThat(updatedSquare.type, equalTo(square.type));
+        assertThat(updatedSquare.length, equalTo(square.length));
+
+        /*
+         *  Change back from square to circle and verify that shape is completely
+         *  updated.
+         */
+        coll3.updateById(initial._id, DBUpdate.set("shape", circle));
+        expected.shape  = circle;
+
+        updated = coll3.findOneById(initial._id);
+        assertThat(updated, notNullValue());
+        assertThat(updated._id, equalTo(expected._id));
+        assertThat(updated.shape, notNullValue());
+        assertThat(updated.shape, instanceOf(Circle.class));
+
+        Circle updatedCircle = (Circle)updated.shape;
+        assertThat(updatedCircle.type, equalTo(circle.type));
+        assertThat(updatedCircle.radius, equalTo(circle.radius));
     }
- 
+
     public static class MockObject {
         public String _id = "id";
         @JsonSerialize(using = FooToBarSerializer.class)
@@ -282,7 +282,7 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
             }
         }
     }
-    
+
     public static class NestedRepeatedAttributeName {
         public static class Inner {
             public Date timestamp;
@@ -291,11 +291,11 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
         public Inner inner = new Inner();
         public long timestamp;
     }
-    
+
     public static class NestedIdFieldWithDifferentType {
         public static final String DEFAULT_VALUE = "default-value";
         public static final Date NESTED_ID_FIELD_VALUE = new Date();
-        
+
         public static class Nested {
             public Date _id = NESTED_ID_FIELD_VALUE;
         }
@@ -305,37 +305,37 @@ public class TestDBUpdateSerialization extends MongoDBTestBase {
     }
 
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-	@JsonSubTypes({
-		@Type(name = "SQUARE", value = Square.class),
-		@Type(name = "CIRCLE", value = Circle.class),
-	})
-	public static class Shape {
-    	public static enum ShapeType {
-    		SQUARE,
-    		CIRCLE;
-    	}
-    	
-		public ShapeType type;
-	}
-	
-	public static class Square extends Shape {
-		public long length;
-		
-		public Square() {
-			super.type = ShapeType.SQUARE;
-		}
-	}
-	
-	public static class Circle extends Shape {
-		public long radius;
+    @JsonSubTypes({
+        @Type(name = "SQUARE", value = Square.class),
+        @Type(name = "CIRCLE", value = Circle.class),
+    })
+    public static class Shape {
+        public static enum ShapeType {
+            SQUARE,
+            CIRCLE;
+        }
 
-		public Circle() {
-			super.type = ShapeType.CIRCLE;
-		}
-	}
+        public ShapeType type;
+    }
 
-	public static class ShapeAndString {
-		public String _id;
-		public Shape  shape;
-	}
+    public static class Square extends Shape {
+        public long length;
+
+        public Square() {
+            super.type = ShapeType.SQUARE;
+        }
+    }
+
+    public static class Circle extends Shape {
+        public long radius;
+
+        public Circle() {
+            super.type = ShapeType.CIRCLE;
+        }
+    }
+
+    public static class ShapeAndString {
+        public String _id;
+        public Shape  shape;
+    }
 }

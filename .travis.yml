@@ -1,13 +1,16 @@
 language: java
+script: mvn install source:jar javadoc:jar -B
 deploy:
   provider: releases
-  skip_cleanup: true
-  overwrite: true
   api_key:
-    secure: jbpK0NkyaC9ISZtyRmsSI4RZm/hGZmsrgxwzSeJGX6llPBHTV/UhUtoN9S1O70WfkPdAe/wQxhYnI+XSExOcTbbCSsj9+h+4bMn10/dJdKG0raSDBXa267xsPDIDVTjYMgswMFfnU0QtH5sAg101qtZhaGRDMuUrj7hKgwLBE8W2zhC1TpK1MW8Z8BYpQEk+aS5OG9t/cSOG5hY+10jlIvO1Yg4DyJUjTiwPLynIb1TlOCo1+utHWGL8DbMCxBSidLUc70W+88U5k2qHwJHbCttwJfzxZYAWKtrIxy3H8NUdJ1IR/PSjqgDySkjyxPuZ8JGpF8WoPtKfQqS1FD7TaSNu3NC19cEsRz3TcGwgCP8WdnPsQAYLMhZe8DiaGF9SQOwbIYQmIpFKISwgKj+pvOFE+/OujIQucg6IhcefOEJ8EQUBnLTcWcUl9bgi9eWIEsLVh6vk9SdBAVBWWwSWLPXyHiemT2vrXZ7SRQJbEsGOtBdcQPnQQuRTAQJIjoSS0r/QzKTj6A/ccCAUCkaG1vs2aITIXNkUuTkSPzKsHLCtjJy7dXyrBWZV7GVPpc+MYwNezVXK+ZH0Mk6pe7NXAXsVxz5EZRNZc0/xhVzbHEK4jWo3h82wneZXdbHGkbC0TPOOxyJCxuj3vkx4YEHTTGAswaQkIUBgUOKt6jskO7E=
+    secure: DEqnX3iaBipn+V/VlSu0KbjNziU9JadpI0WzBKzy1bJnpuzs6L1NDuAh+AgZn0q1ykocY8SQu/Zc3Vn9+bdwtM3vQmpleJf0KTTBnX+oiyMOu/mE34OIGc+p7BNaayUim5rcR0jdxSZtBiwVX3ezoJcPA3H6Ulrp3b2vs9mIkdBGEJSvC0tUklGNdPlI8BV6MrT4O7/sSiHtXX5GCibLpwjThqK9gYig4U4SqrJhfDucaTCxGUgAFFyT9SkLbAEs+IsSOHNqNOkhRgemJ6BpleLHf7cSXGYk7WdsO7y5dXle8E5sRiBXl6uKle/33D+Z9KLU+2wvEnJHhJJruTFTkwc5+ft8yBTLXOrRWUMpJ5rl8PcMdaGxYjzcQy5R89cqL0AbhdnmFuNaUgPs7OxNC1J6stgWbMfvUe7TnpQOPxUqmqyKsF8w3JQ05jWuPXpXxWiVnXasq6VI2w5GT8FGG5hoMzt89V55BSVrqqMeWGy0pzshGWasTOdJJPY6gHcwg/u3qCbJwx2QrZESqmebXcrQ+cEPmkwQdEkidQM5fTXhaNibFKSD8IrmK0Uvy183/Gpd0TIszBAdAtOC4AQOJm7/QFjureB+uoyU3sWHr9vJoBzYESj23JEr42xNZZCgyTM5F9lBTsOyStxCAqF6u4B0HY9FgvGrSWVSgqw7EY0=
+  overwrite: true
+  skip_cleanup: true
   file:
-    - pom.xml
-    - target/mongojack-2.9.4-ANONYOME.jar
+  - pom.xml
+  - target/mongojack-2.9.4-ANONYOME-1.jar
+  - target/mongojack-2.9.4-ANONYOME-1-sources.jar
+  - target/mongojack-2.9.4-ANONYOME-1-javadoc.jar
   on:
     repo: anonyome/mongojack
     branch: anonyome-2.9.4
