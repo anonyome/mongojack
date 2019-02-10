@@ -8,9 +8,9 @@ deploy:
   skip_cleanup: true
   file:
   - pom.xml
-  - target/mongojack-2.9.4-ANONYOME-2.jar
-  - target/mongojack-2.9.4-ANONYOME-2-sources.jar
-  - target/mongojack-2.9.4-ANONYOME-2-javadoc.jar
+  - target/mongojack-2.9.4-ANONYOME-3.jar
+  - target/mongojack-2.9.4-ANONYOME-3-sources.jar
+  - target/mongojack-2.9.4-ANONYOME-3-javadoc.jar
   on:
     repo: anonyome/mongojack
     branch: anonyome-2.9.4
