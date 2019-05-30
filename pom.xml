@@ -3,7 +3,7 @@
 
   <groupId>org.mongojack</groupId>
   <artifactId>mongojack</artifactId>
-  <version>2.10.0-ANONYOME-1</version>
+  <version>2.10.0-ANONYOME-2</version>
   <packaging>bundle</packaging>
 
   <name>MongoJack</name>
@@ -165,7 +165,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>org.mongojack</Export-Package>
+            <Export-Package>org.mongojack,org.mongojack.internal</Export-Package>
           </instructions>
         </configuration>
         <executions>
